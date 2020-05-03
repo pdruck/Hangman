@@ -5,9 +5,9 @@ selected = random.choice(words.word_list)
 guessed = []
 
 
-def print_state(state_num):
+def print_state(state):
     print(selected)
-    print(states.STATE[state_num])
+    print(states.STATE[state])
     print(*guessed, sep=' ')
 
 
@@ -25,7 +25,7 @@ def guess():
         return False
 
 
-def main():
+if __name__ == "__main__":
     state_num = 0
 
     # while game is not over
@@ -35,7 +35,3 @@ def main():
             state_num = state_num + 1
 
         print_state(state_num)
-
-
-if __name__ == "__main__":
-    main()
