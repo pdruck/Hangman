@@ -2,24 +2,31 @@ from src import words, states
 import random
 
 
-def print_state(state):
-    print(initial)
+# print the current state of the game
+def print_state(state, init, guessed):
+    # print(init)
     print(states.STATE[state])
-    print(*remaining_letters, sep=' ')
+    print()
+    print(''.join([c + ' ' for c in guessed]))
+    print(''.join(['- ' for i in range(len(init))]))
 
 
 # check if letter is a correct or incorrect guess
 # if correct, remove letter from the list of remaining letters
-def guess(guessed_letter, remaining):
-    if guessed_letter in remaining:
-        return remaining.replace(guessed_letter, ''), True
+def make_guess(guess, correct, initial):
+    letter_replaced = False
 
-    return remaining, False
+    for count, letter in enumerate(initial):
+        if letter == guess:
+            correct[count] = letter
+            letter_replaced = True
+
+    return correct, letter_replaced
 
 
 # check for game end state
-def game_end(state):
-    if len(remaining_letters) == 0:
+def game_end(state, initial, correct):
+    if ''.join(correct) == initial:
         print("Good job, guy!")
         return True
     elif state == states.STATE_MAX:
@@ -38,23 +45,24 @@ def get_user_input(already_guessed):
 
 
 if __name__ == "__main__":
-    initial = random.choice(words.word_list).upper()    # target word
-    remaining_letters = initial                         # remaining letters in target word
-    guessed = []                                        # list of letters that have been guessed already
-    state_num = 0                                       # game state number
+    initial_word = random.choice(words.word_list).upper()  # target word
+    guessed_letter = []  # list of letters that have been guessed already
+    correct_letters = [' '] * len(initial_word)  # letters that have been guessed correctly
+    state_num = 0  # game state number
     game_over = False
 
+    # have user continue to guess letters until game is over
     while not game_over:
         # make guess
-        current_letter = get_user_input(guessed)
-        guessed.append(current_letter)
-        remaining_letters, correct_guess = guess(current_letter, remaining_letters)
+        current_letter = get_user_input(guessed_letter)
+        guessed_letter.append(current_letter)
+        correct_letters, correct_guess = make_guess(current_letter, correct_letters, initial_word)
 
         # if incorrect letter is guessed, move to next state
         if not correct_guess:
             state_num += 1
 
-        print_state(state_num)
+        print_state(state_num, initial_word, correct_letters)
 
-        if game_end(state_num):
+        if game_end(state_num, initial_word, correct_letters):
             game_over = True
