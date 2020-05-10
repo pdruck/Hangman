@@ -1,6 +1,7 @@
 # an array representing each hangman state
 STATE_MAX = 6
 
+# normal states
 STATE = ['''
   +---+
   |   |
@@ -52,6 +53,7 @@ STATE = ['''
       |
 =========''']
 
+# states formatted for Discord markdown
 STATE_FORMATTED = ['''
 `  +---+  `
 `  |   |  `

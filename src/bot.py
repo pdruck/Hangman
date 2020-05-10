@@ -1,4 +1,4 @@
-# bot.py
+# Discord bot
 import asyncio
 import os
 import random
@@ -25,20 +25,23 @@ async def hangman_game(ctx):
     # have user continue to guess letters until game is over
     while not game_over:
 
+        # request user input
         await ctx.send("Guess a letter: ")
 
+        # check for good input before continuing
         def check(msg):
             message = msg.content.upper()
             return message and message[0].isalpha() and message[0] not in guessed_letters and msg.author != bot.user
 
+        # attempt to read next valid message in chat, timeout after 20 seconds
         try:
             current_letter = await bot.wait_for('message', check=check, timeout=20.0)
         except asyncio.TimeoutError:
             return await ctx.send('Sorry homie, you took too long! The answer is {}.'.format(initial_word))
 
         response = current_letter.content[0].upper()
-
         guessed_letters.append(response)
+
         correct_letters, correct_guess = hangman.make_guess(response, correct_letters, initial_word)
 
         # if incorrect letter is guessed, move to next state
@@ -52,6 +55,7 @@ async def hangman_game(ctx):
         await ctx.send(states.STATE_FORMATTED[state_num])
         await ctx.send(correct_formatted)  # correctly guessed letters separated by spaces
 
+        # print success/failure message if game end conditions are met
         if ''.join(correct_letters) == initial_word:
             await ctx.send("Good job, guy!")
             game_over = True
