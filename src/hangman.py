@@ -22,7 +22,7 @@ def make_guess(guess, correct, initial):
     return correct, letter_replaced
 
 
-# check for game end state
+# check for game end state, print message
 def game_end(state, initial, correct):
     if ''.join(correct) == initial:
         print("Good job, guy!")
