@@ -3,12 +3,11 @@ import random
 
 
 # print the current state of the game
-def print_state(state, init, guessed):
-    # print(init)
+def print_state(state, correct):
     print(states.STATE[state])
     print()
-    print(''.join([c + ' ' for c in guessed]))
-    print(''.join(['- ' for i in range(len(init))]))
+    print(''.join([c + ' ' for c in correct]))  # correctly guessed letters separated by spaces
+    print(''.join(['- ' for i in range(len(correct))]))  # dashes to display letter count
 
 
 # check if letter is a correct or incorrect guess
