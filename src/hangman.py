@@ -7,7 +7,7 @@ def print_state(state, correct):
     print(states.STATE[state])
     print()
     print(''.join([c + ' ' for c in correct]))  # correctly guessed letters separated by spaces
-    print(''.join(['- ' for i in range(len(correct))]))  # dashes to display letter count
+    print(''.join(['- ' for _ in range(len(correct))]))  # dashes to display letter count
 
 
 # add guessed letter to correct letters list
@@ -28,6 +28,7 @@ def game_end(state, initial, correct):
         print("Good job, guy!")
         return True
     elif state == states.STATE_MAX:
+        print("The word was", initial)
         print("GG, ez")
         return True
 
