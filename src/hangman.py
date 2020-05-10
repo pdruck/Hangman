@@ -61,7 +61,7 @@ if __name__ == "__main__":
         if not correct_guess:
             state_num += 1
 
-        print_state(state_num, initial_word, correct_letters)
+        print_state(state_num, correct_letters)
 
         if game_end(state_num, initial_word, correct_letters):
             game_over = True
