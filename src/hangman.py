@@ -10,8 +10,7 @@ def print_state(state, correct):
     print(''.join(['- ' for i in range(len(correct))]))  # dashes to display letter count
 
 
-# check if letter is a correct or incorrect guess
-# if correct, remove letter from the list of remaining letters
+# add guessed letter to correct letters list
 def make_guess(guess, correct, initial):
     letter_replaced = False
 
